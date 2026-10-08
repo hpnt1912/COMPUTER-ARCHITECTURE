@@ -4,7 +4,7 @@ msg:    .asciiz "Ket qua: "
 main:   li   $t0, 25
         li   $t1, 70000
         add  $t2, $t0, $t1
-        blt  $t0, $t1, small
+        bgt  $t0, $t1, small
         li   $t2, 0
 small:  la   $a0, msg
         li   $v0, 4
