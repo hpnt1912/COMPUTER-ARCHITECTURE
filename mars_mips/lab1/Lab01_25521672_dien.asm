@@ -21,7 +21,8 @@ loop:
     syscall
     move $s0, $v0 # $s0 = x
     
-    bgeu $s0, 10000, NhapLai #neu unsigned(x) >= 10000, nhap lai
+    sltiu $t3, $s0, 10000 # neu (unsigned)x < 10000 -> $t3 = 1, nguoc lai $t3 = 0
+    beq $t3, $zero, NhapLai # neu $t3 = 0, thi nhay den nhap lai
     j xu_ly
     NhapLai:
            li $v0, 4 #in ra thong bao so ko hop le, nhap lai
@@ -37,22 +38,22 @@ xu_ly:
      la $s3, DonGia #dia chi goc Don Gia
      
      loop_tinh:
+          #kiem tra x <= 0 thi dung 
+          blez $s0, end_loop
+     
           #tinh dia chi phan tu DungLuong[i] 
           sll $t4, $t0, 2
           add $t4, $t4, $s2
-          lw $t1, 0($t4)
+          lw $t1, 0($t4) # DungLuong[i] = $t1
      
-          #tinh dia chi phan tu DonGia[i]
-          sll $t4, $t0, 2
-          add $t4, $t4, $s3
-          lw $t2, 0($t4)
-          
-          #kiem tra x < 0 thi dung 
-          blez $s0, end_loop
-          
           #kiem tra DuongLuong[i] = -1 thi dung
           li $t4, -1
           beq $t1, $t4, end_loop
+           
+          #tinh dia chi phan tu DonGia[i]
+          sll $t4, $t0, 2
+          add $t4, $t4, $s3
+          lw $t2, 0($t4) # DonGia[i] = $t2
           
           move $t3, $s0 # gan kWh_bac = x
           ble $s0, $t1, skip_kWh # neu x <= DungLuong[i] thi nhay toi skip_kWh
@@ -73,8 +74,8 @@ xu_ly:
               li $v0, 1 #ghi gia tri cua res va xuat ra man hinh
               move $a0, $s1
               syscall
-              
-              li $v0, 4
+               
+              li $v0, 4 #in dong va xuong dong
               la $a0, dong
               syscall
               
