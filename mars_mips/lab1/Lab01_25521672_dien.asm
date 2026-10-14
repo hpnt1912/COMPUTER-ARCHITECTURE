@@ -1,3 +1,8 @@
+# $s0 luu gia tri x (so kWh nhap tu ban phim)
+# $s1 luu gia tri res (tong so tien)
+# $s2 luu gia tri co so mang DungLuong
+# $s3 luu gia tri co so mang DonGia
+
 .data
 DungLuong: .word 50, 50, 100, 100, 100, 9599, -1
 DonGia: .word 1640, 1700, 1990, 2540, 2890, 3040
