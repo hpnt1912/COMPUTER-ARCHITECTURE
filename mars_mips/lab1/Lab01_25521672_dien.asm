@@ -42,6 +42,9 @@ xu_ly:
      la $s2, DungLuong #dia chi goc Dung Luong
      la $s3, DonGia #dia chi goc Don Gia
      
+     #kiem tra DuongLuong[i] = -1 thi dung
+     li $t4, -1
+     
      loop_tinh:
           #kiem tra x <= 0 thi dung 
           blez $s0, end_loop
@@ -51,8 +54,6 @@ xu_ly:
           add $t4, $t4, $s2
           lw $t1, 0($t4) # DungLuong[i] = $t1
      
-          #kiem tra DuongLuong[i] = -1 thi dung
-          li $t4, -1
           beq $t1, $t4, end_loop
            
           #tinh dia chi phan tu DonGia[i]
