@@ -142,7 +142,7 @@ main:
                sw $t6, 0($t5) #his++
                
                addi $t0, $t0, 1
-               j hist_loop
+               j hist_loop	 
            hist_end:
                 jr $ra
                
